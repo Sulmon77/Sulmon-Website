@@ -17,6 +17,7 @@
             --text: #1f2937;
             --background: #ffffff;
             --secondary: #f3f4f6;
+            --whatsapp: #25D366;
         }
 
         body {
@@ -140,6 +141,57 @@
             font-size: 1.5rem;
         }
 
+        /* WhatsApp Button Styles */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: var(--whatsapp);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-icon {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        /* WhatsApp Tooltip */
+        .whatsapp-tooltip {
+            position: fixed;
+            bottom: 5rem;
+            right: 2rem;
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 0.875rem;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .whatsapp-button:hover + .whatsapp-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -151,6 +203,18 @@
 
             .hero {
                 padding-top: 6rem;
+            }
+
+            .whatsapp-button {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-icon {
+                width: 25px;
+                height: 25px;
             }
         }
     </style>
@@ -192,6 +256,14 @@
         </div>
     </section>
 
+    <!-- WhatsApp Integration -->
+    <div class="whatsapp-button" id="whatsappButton">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 15.55C16.4 16.31 15.3 16.96 14.47 17.23C13.93 17.41 13.24 17.55 10.8 16.56C7.8 15.33 5.96 12.27 5.8 12.06C5.64 11.85 4.6 10.49 4.6 9.07C4.6 7.65 5.31 6.97 5.56 6.72C5.81 6.47 6.12 6.39 6.31 6.39C6.5 6.39 6.69 6.39 6.85 6.4C7.03 6.41 7.27 6.33 7.5 6.97C7.74 7.62 8.39 9.04 8.47 9.21C8.55 9.38 8.59 9.57 8.47 9.79C8.35 10.01 8.31 10.14 8.14 10.34C7.97 10.54 7.8 10.79 7.65 10.94C7.47 11.12 7.29 11.31 7.5 11.65C7.71 11.99 8.35 13.03 9.31 13.89C10.55 14.99 11.57 15.34 11.91 15.52C12.25 15.7 12.44 15.67 12.64 15.44C12.84 15.21 13.45 14.5 13.68 14.16C13.91 13.82 14.14 13.88 14.46 13.99C14.78 14.1 16.19 14.79 16.54 14.97C16.89 15.15 17.12 15.23 17.2 15.38C17.27 15.53 17.27 16.19 16.64 15.55Z"/>
+        </svg>
+    </div>
+    <div class="whatsapp-tooltip">Chat with us on WhatsApp!</div>
+
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -211,6 +283,19 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // WhatsApp Integration
+        document.getElementById('whatsappButton').addEventListener('click', function() {
+            // Replace these values with your actual WhatsApp number and message
+            const phoneNumber = '1234567890';
+            const message = 'Hi! I\'m interested in learning more about your services.';
+            
+            // Create WhatsApp URL with phone number and encoded message
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
         });
     </script>
 </body>
